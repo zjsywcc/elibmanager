@@ -26,16 +26,16 @@ public class AdminController {
     private BookDao bookDao;
 
     @RequestMapping
-    public String admin(Model model, Principal principal, HttpServletRequest request) {
-        String currentUser = null;
-        try {
-            currentUser = principal.getName();
-        } catch (Exception e) {
-            throw new RuntimeException("cannot fetch user info: ", e);
-        }
-        if(currentUser != null) {
-            model.addAttribute("currentUser", currentUser);
-        }
+    public String admin() {
+//        String currentUser = null;
+//        try {
+//            currentUser = principal.getName();
+//        } catch (Exception e) {
+//            throw new RuntimeException("cannot fetch user info: ", e);
+//        }
+//        if(currentUser != null) {
+//            model.addAttribute("currentUser", currentUser);
+//        }
         return "admin";
     }
 

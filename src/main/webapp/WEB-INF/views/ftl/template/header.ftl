@@ -1,3 +1,4 @@
+<#import "/spring.ftl" as spring/>
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#if Session["SPRING_SECURITY_CONTEXT"]?exists>
     <#assign username = Session["SPRING_SECURITY_CONTEXT"].authentication.name />

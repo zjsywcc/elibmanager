@@ -1,9 +1,11 @@
 <#include "template/header.ftl"/>
 <div class="container-wrapper">
     <div class="container">
+        <div class="page-header">
+            <h1>Login Page</h1>
+            <p class="lead">Login with username and password</p>
+        </div>
         <div id="login-box">
-            <h2>Login with username and password</h2>
-
             <#if msg??>
                 <div class="msg">${msg}</div>
             </#if>
