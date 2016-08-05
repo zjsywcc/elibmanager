@@ -1,4 +1,4 @@
-<#include "templates/header.ftl"/>
+<#include "template/header.ftl"/>
 
 <div class="container-wrapper">
     <div class="container">
@@ -38,4 +38,4 @@
         </table>
 
 
-<#include "templates/footer.ftl"/>
+<#include "template/footer.ftl"/>

@@ -1,4 +1,4 @@
-<#include "templates/header.ftl"/>
+<#include "template/header.ftl"/>
 
 <!-- Carousel
 ================================================== -->
@@ -122,4 +122,4 @@
     <hr class="featurette-divider">
 
 
-<#include "templates/footer.ftl"/>
+<#include "template/footer.ftl"/>

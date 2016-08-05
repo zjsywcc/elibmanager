@@ -1,18 +1,35 @@
 package com.elibmanager.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+
+
 /**
  * Created by wcc on 2016/8/4.
  */
+@Entity
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int bookId;
+
+    @NotEmpty(message = "The book name must not be null.")
     private String bookName;
     private String bookAuthor;
     private String bookPress;
-    private String bookPrice;
+
+    @Min(value = 0, message = "The book price must not be less than zero.")
+    private double bookPrice;
     private String bookEdition;
     private String bookISBN;
     private String bookOwner;
+
+    @Transient
+    private MultipartFile bookImage;
 
     public int getBookId() {
         return bookId;
@@ -46,11 +63,11 @@ public class Book {
         this.bookPress = bookPress;
     }
 
-    public String getBookPrice() {
+    public double getBookPrice() {
         return bookPrice;
     }
 
-    public void setBookPrice(String bookPrice) {
+    public void setBookPrice(double bookPrice) {
         this.bookPrice = bookPrice;
     }
 
@@ -76,5 +93,13 @@ public class Book {
 
     public void setBookOwner(String bookOwner) {
         this.bookOwner = bookOwner;
+    }
+
+    public MultipartFile getBookImage() {
+        return bookImage;
+    }
+
+    public void setBookImage(MultipartFile bookImage) {
+        this.bookImage = bookImage;
     }
 }
