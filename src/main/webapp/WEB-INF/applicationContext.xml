@@ -11,9 +11,7 @@
         <property name="password" value="112358"/>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
+
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -21,8 +19,8 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
             </props>
         </property>
         <property name="packagesToScan">
@@ -32,20 +30,24 @@
         </property>
     </bean>
 
-    <bean id="multipartRsolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="2048000"/>
     </bean>
 
     <security:http auto-config="true">
         <security:intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
         <security:form-login
-            login-page="/login"
-            default-target-url="/admin/"
-            authentication-failure-url="/login?error"
-            username-parameter="username"
-            password-parameter="password"/>
+                login-page="/login"
+                default-target-url="/admin/"
+                authentication-failure-url="/login?error"
+                username-parameter="username"
+                password-parameter="password"/>
         <security:logout
-            logout-success-url="/login?logout"/>
+                logout-success-url="/login?logout"/>
     </security:http>
     <security:authentication-manager>
         <security:authentication-provider>
