@@ -5,6 +5,7 @@ import com.elibmanager.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -28,5 +29,12 @@ public class HomeController {
         List<Book> books = bookDao.getAllBooks();
         model.addAttribute("books", books);
         return "bookList";
+    }
+
+    @RequestMapping("/bookList/viewBook/{bookId}")
+    public String viewBook(@PathVariable("bookId") int bookId, Model model) {
+        Book book = bookDao.getBookById(bookId);
+        model.addAttribute("book", book);
+        return "viewBook";
     }
 }

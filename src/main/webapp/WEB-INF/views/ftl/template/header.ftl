@@ -47,7 +47,6 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="/">Home</a></li>
                         <li><a href="/bookList">Booklist</a></li>
-                        <li><a href="/admin">Contact</a></li>
                     </ul>
                     <ul class="nav navbar-nav pull-right">
                     <li class="dropdown pull-right">

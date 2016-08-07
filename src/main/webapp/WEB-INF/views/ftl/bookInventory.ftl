@@ -31,7 +31,11 @@
                     <td>${book.bookEdition}</td>
                     <td>${book.bookISBN}</td>
                     <td>${book.bookOwner}</td>
-                    <td><a href="/booklist/viewBook/${book.bookId}" class="glyphicon glyphicon-info-sign"></a></td>
+                    <td>
+                        <a href="/bookList/viewBook/${book.bookId}" class="glyphicon glyphicon-info-sign"></a>
+                        <a href="/admin/bookInventory/editBook/${book.bookId}" class="glyphicon glyphicon-pencil"></a>
+                        <a href="/admin/bookInventory/deleteBook/${book.bookId}" class="glyphicon glyphicon-remove"></a>
+                    </td>
                 </tr>
             </#list>
         </#if>
