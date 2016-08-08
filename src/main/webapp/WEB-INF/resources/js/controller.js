@@ -21,15 +21,8 @@ applyApp.controller("applyCtrl", function($scope, $http) {
         $scope.refreshApply(applyId);
     };
 
-    $scope.addToApply = function(productId) {
-        $http.put('/rest/apply/add/'+productId).success(function (data) {
-            $scope.refreshApply($http.get('/rest/apply/applyId'));
-            alert("Product successfully added to the apply!");
-        });
-    };
-
-    $scope.removeFromApply = function (productId) {
-        $http.put('/rest/apply/remove/'+productId).success(function (data) {
+    $scope.removeFromApply = function (bookId) {
+        $http.put('/rest/apply/remove/'+bookId).success(function (data) {
             $scope.refreshApply($http.get('/rest/apply/applyId'));
         });
     };

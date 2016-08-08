@@ -26,7 +26,7 @@ public class HomeController {
 
     @RequestMapping("/bookList")
     public String BookList(Model model) {
-        List<Book> books = bookDao.getAllBooks();
+        List<Book> books = bookDao.getAllBooksOnShelf();
         model.addAttribute("books", books);
         return "bookList";
     }

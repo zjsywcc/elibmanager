@@ -15,7 +15,7 @@
                 </h2>
             </#if>
         <h3>
-            <a href="/admin/bookInventory">Product Inventory</a>
+            <a href="/admin/bookInventory">Book Inventory</a>
         </h3>
 
         <p>Here you can view, check and modify the book inventory!</p>

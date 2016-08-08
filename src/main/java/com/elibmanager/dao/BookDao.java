@@ -17,6 +17,8 @@ public interface BookDao {
 
     List<Book> getAllBooks();
 
+    List<Book> getAllBooksOnShelf();
+
     void deleteBook(int id);
 
     void editBook(Book book);

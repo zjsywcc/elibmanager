@@ -1,6 +1,8 @@
 package com.elibmanager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -40,6 +42,7 @@ public class Student implements Serializable{
     private Apply apply;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JsonIgnore
     private List<Book> bookList;
 

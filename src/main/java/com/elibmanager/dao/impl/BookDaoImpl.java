@@ -42,10 +42,18 @@ public class BookDaoImpl implements BookDao {
         return book;
     }
 
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBooksOnShelf() {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Book where bookStatus = ?");
         query.setString(0, "onShelf");
+        List<Book> books = query.list();
+        session.flush();
+        return books;
+    }
+
+    public List<Book> getAllBooks() {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Book");
         List<Book> books = query.list();
         session.flush();
         return books;

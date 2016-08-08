@@ -1,6 +1,8 @@
 package com.elibmanager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,11 +39,13 @@ public class Book implements Serializable {
     private MultipartFile bookImage;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JsonIgnore
     private List<ApplyItem> applyItemList;
 
     @ManyToOne
     @JoinColumn(name = "studentId")
+    @JsonIgnore
     private Student student;
 
     private String bookStatus;

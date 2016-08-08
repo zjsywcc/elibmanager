@@ -1,5 +1,6 @@
 package com.elibmanager.dao;
 
+import com.elibmanager.model.Apply;
 import com.elibmanager.model.ApplyItem;
 
 /**
@@ -8,5 +9,11 @@ import com.elibmanager.model.ApplyItem;
 public interface ApplyItemDao {
 
     void addApplyItem(ApplyItem applyItem);
+
+    void removeApplyItem(ApplyItem applyItem);
+
+    void removeAllApplyItems(Apply apply);
+
+    ApplyItem getApplyItemByBookId(int bookId);
 
 }

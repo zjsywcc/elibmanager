@@ -1,6 +1,8 @@
 package com.elibmanager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +22,7 @@ public class Apply implements Serializable {
     private int applyId;
 
     @OneToMany(mappedBy = "apply", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<ApplyItem> applyItems;
 
     @OneToOne

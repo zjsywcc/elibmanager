@@ -11,37 +11,43 @@
             </div>
         </section>
 
-        <section class="container" ng-app="cartApp">
-            <div ng-controller="cartCtrl" ng-init="initCartId('${cartId}')">
+        <section class="container" ng-app="applyApp">
+            <div ng-controller="applyCtrl" ng-init="initApplyId('${applyId}')">
                 <div>
-                    <a class="btn btn-danger pull-left" ng-click="clearCart()"><span class="glyphicon glyphicon-remove-sign"></span>Clear Cart</a>
+                    <a class="btn btn-danger pull-left" ng-click="clearApply()"><span class="glyphicon glyphicon-remove-sign"></span>Clear Apply</a>
                 </div>
 
                 <table class="table table-hover">
                     <tr>
-                        <th>Product</th>
-                        <th>Unit Price</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
+                        <th>书名</th>
+                        <th>作者</th>
+                        <th>出版社</th>
+                        <th>价格</th>
+                        <th>版次</th>
+                        <th>ISBN</th>
+                        <th>持有者</th>
                         <th>Action</th>
                     </tr>
-                    <tr ng-repeat="item in cart.cartItems">
-                        <td>{{item.product.productName}}</td>
-                        <td>{{item.product.productPrice}}</td>
-                        <td>{{item.quantity}}</td>
-                        <td>{{item.totalPrice}}</td>
-                        <td><a href="#" class="label label-danger" ng-click="removeFromCart(item.product.productId)"><span class="glyphicon glyphicon-remove"></span>remove</a></td>
+                    <tr ng-repeat="item in apply.applyItems">
+                        <td>{{item.book.bookName}}</td>
+                        <td>{{item.book.bookAuthor}}</td>
+                        <td>{{item.book.bookPress}}</td>
+                        <td>{{item.book.bookPrice}}</td>
+                        <td>{{item.book.bookEdition}}</td>
+                        <td>{{item.book.bookISBN}}</td>
+                        <td>{{item.book.bookOwner}}</td>
+                        <td><a href="#" class="label label-danger" ng-click="removeFromApply(item.book.bookId)"><span class="glyphicon glyphicon-remove"></span>remove</a></td>
                     </tr>
                     <tr>
                         <th></th>
                         <th></th>
                         <th>Grand Total</th>
-                        <th>{{cart.grandTotal}}</th>
+                        <th>{{apply.grandTotal}}</th>
                         <th></th>
                     </tr>
                 </table>
 
-                <a href="/productList" class="btn btn-default">Continue Shopping</a>
+                <a href="/bookList" class="btn btn-default">等待上架中</a>
             </div>
         </section>
     </div>
