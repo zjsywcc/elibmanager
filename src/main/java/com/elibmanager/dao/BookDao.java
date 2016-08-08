@@ -11,6 +11,8 @@ public interface BookDao {
 
     void addBook(Book book);
 
+    void addAllBooks(List<Book> book);
+
     Book getBookById(int id);
 
     List<Book> getAllBooks();

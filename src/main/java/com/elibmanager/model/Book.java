@@ -1,17 +1,22 @@
 package com.elibmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
+import java.util.List;
 
 
 /**
  * Created by wcc on 2016/8/4.
  */
 @Entity
-public class Book {
+public class Book implements Serializable {
+
+    private static final long serialVersionUID = -6251070844531027911L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,6 +35,16 @@ public class Book {
 
     @Transient
     private MultipartFile bookImage;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<ApplyItem> applyItemList;
+
+    @ManyToOne
+    @JoinColumn(name = "studentId")
+    private Student student;
+
+    private String bookStatus;
 
     public int getBookId() {
         return bookId;
@@ -101,5 +116,29 @@ public class Book {
 
     public void setBookImage(MultipartFile bookImage) {
         this.bookImage = bookImage;
+    }
+
+    public List<ApplyItem> getApplyItemList() {
+        return applyItemList;
+    }
+
+    public void setApplyItemList(List<ApplyItem> applyItemList) {
+        this.applyItemList = applyItemList;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public String getBookStatus() {
+        return bookStatus;
+    }
+
+    public void setBookStatus(String bookStatus) {
+        this.bookStatus = bookStatus;
     }
 }

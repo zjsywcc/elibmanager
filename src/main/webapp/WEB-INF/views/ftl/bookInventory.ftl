@@ -18,6 +18,7 @@
                 <th>版次</th>
                 <th>ISBN</th>
                 <th>持有者</th>
+                <th>状态</th>
                 <th></th>
             </tr>
             </thead>
@@ -31,10 +32,11 @@
                     <td>${book.bookEdition}</td>
                     <td>${book.bookISBN}</td>
                     <td>${book.bookOwner}</td>
+                    <td>${book.bookStatus}</td>
                     <td>
-                        <a href="/bookList/viewBook/${book.bookId}" class="glyphicon glyphicon-info-sign"></a>
-                        <a href="/admin/bookInventory/editBook/${book.bookId}" class="glyphicon glyphicon-pencil"></a>
-                        <a href="/admin/bookInventory/deleteBook/${book.bookId}" class="glyphicon glyphicon-remove"></a>
+                        <a href="/bookList/viewBook/${book.bookId}"><span class="glyphicon glyphicon-info-sign"></span></a>
+                        <a href="/admin/bookInventory/editBook/${book.bookId}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="/admin/bookInventory/deleteBook/${book.bookId}"><span class="glyphicon glyphicon-remove"></span></a>
                     </td>
                 </tr>
             </#list>

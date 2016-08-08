@@ -31,7 +31,9 @@
                         <td>${book.bookEdition}</td>
                         <td>${book.bookISBN}</td>
                         <td>${book.bookOwner}</td>
-                        <td><a href="/bookList/viewBook/${book.bookId}" class="glyphicon glyphicon-info-sign"></a></td>
+                        <td>
+                            <a href="/bookList/viewBook/${book.bookId}"><span class="glyphicon glyphicon-info-sign"></span></a>
+                        </td>
                     </tr>
                 </#list>
             </#if>

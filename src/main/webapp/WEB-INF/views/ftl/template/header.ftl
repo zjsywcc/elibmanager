@@ -3,6 +3,9 @@
 <#if Session["SPRING_SECURITY_CONTEXT"]?exists>
     <#assign username = Session["SPRING_SECURITY_CONTEXT"].authentication.name />
 </#if>
+<@security.authorize ifAnyGranted="ROLE_USER">
+    <#assign role = "user"/>
+</@security.authorize>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -15,6 +18,9 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>eLib manager</title>
+
+    <!-- Angular JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
 
     <!-- Bootstrap core CSS -->
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -56,11 +62,23 @@
                         <#if username = "admin">
                             <ul class="dropdown-menu">
                                 <li><a href="/admin/bookInventory">BookInventory</a></li>
+                                <li><a href="/admin/students">Students</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="/j_spring_security_logout">Logout</a></li>
                             </ul>
+                        <#elseif role??>
+                            <#if role="user">
+                                <ul class="dropdown-menu">
+                                    <li><a href="/student/myBooks">MyBooks</a></li>
+                                    <li><a href="/student/applyForBooks">Apply Books</a></li>
+                                    <li><a href="/student/applyList">Apply Lists</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="/j_spring_security_logout">Logout</a></li>
+                                </ul>
+                            </#if>
                         </#if>
                     <#else>
+                        <li><a href="/register">Register</a></li>
                         <li><a href="/login">Login</a></li>
                     </#if>
                         </li>

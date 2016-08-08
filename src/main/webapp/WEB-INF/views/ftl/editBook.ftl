@@ -50,6 +50,10 @@
                 <input id="owner" class="form-control" name="${spring.status.expression}" value="${spring.status.value?default("")}"/>
             </div>
             <div class="form-group">
+                <label for="status">Status</label>
+                <label class="checkbox-inline"><@spring.formRadioButtons "book.bookStatus", status, '</label><label class="checkbox-inline">'/></label>
+            </div>
+            <div class="form-group">
                 <label class="control-label" for="bookImage">Upload Picture</label>
             <@spring.bind "book.bookImage" />
                 <input id="bookImage" type="file" class="form:input-large" name="${spring.status.expression}" value="${spring.status.value?default("")}"/>
