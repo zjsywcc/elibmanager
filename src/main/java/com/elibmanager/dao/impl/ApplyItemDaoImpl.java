@@ -1,8 +1,10 @@
 package com.elibmanager.dao.impl;
 
 import com.elibmanager.dao.ApplyItemDao;
+import com.elibmanager.dao.BookDao;
 import com.elibmanager.model.Apply;
 import com.elibmanager.model.ApplyItem;
+import com.elibmanager.model.Book;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,6 +24,7 @@ public class ApplyItemDaoImpl implements ApplyItemDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+
     public void addApplyItem(ApplyItem applyItem) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(applyItem);
@@ -36,7 +39,6 @@ public class ApplyItemDaoImpl implements ApplyItemDao {
 
     public void removeAllApplyItems(Apply apply) {
         List<ApplyItem> applyItems = apply.getApplyItems();
-
         for(ApplyItem item : applyItems) {
             removeApplyItem(item);
         }

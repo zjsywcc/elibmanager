@@ -1,12 +1,10 @@
 package com.elibmanager.controller;
 
+import com.elibmanager.dao.ApplyDao;
 import com.elibmanager.dao.ApplyItemDao;
 import com.elibmanager.dao.BookDao;
 import com.elibmanager.dao.StudentDao;
-import com.elibmanager.model.Apply;
-import com.elibmanager.model.ApplyItem;
-import com.elibmanager.model.Book;
-import com.elibmanager.model.Student;
+import com.elibmanager.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -38,6 +36,9 @@ public class StudentController {
     @Autowired
     private ApplyItemDao applyItemDao;
 
+    @Autowired
+    private ApplyDao applyDao;
+
     @RequestMapping("/myBooks")
     public String getMyBooks(@AuthenticationPrincipal User activeUser, Model model) {
         Student student = studentDao.getStudentByUsername(activeUser.getUsername());
@@ -48,24 +49,28 @@ public class StudentController {
 
     @RequestMapping("/applyForBooks")
     public String applyForBooks(Model model) {
+        BookListWrapper bookListWrapper = new BookListWrapper();
         Book book1 = new Book();
         Book book2 = new Book();
         Book book3 = new Book();
         book1.setBookStatus("checking");
         book2.setBookStatus("checking");
         book3.setBookStatus("checking");
-        List<Book> books = new ArrayList<>();
-        books.add(book1);
-        books.add(book2);
-        books.add(book3);
-        model.addAttribute("books", books);
+        bookListWrapper.add(book1);
+        bookListWrapper.add(book2);
+        bookListWrapper.add(book3);
+        model.addAttribute("bookListWrapper", bookListWrapper);
         return "applyForBooks";
     }
 
     @RequestMapping(value = "/applyForBooks", method = RequestMethod.POST)
-    public String applyForBooksPost(@Valid @ModelAttribute("books") List<Book> books, BindingResult result, @AuthenticationPrincipal User activeUser, Model model) {
-        bookDao.addAllBooks(books);
+    public String applyForBooksPost(@Valid @ModelAttribute("bookListWrapper") BookListWrapper bookListWrapper, BindingResult result, @AuthenticationPrincipal User activeUser, Model model) {
+        List<Book> books = bookListWrapper.getBookList();
         Student student = studentDao.getStudentByUsername(activeUser.getUsername());
+        for(Book book : books) {
+            book.setStudent(student);
+        }
+        bookDao.addAllBooks(books);
         Apply apply = student.getApply();
         List<ApplyItem> applyItems = apply.getApplyItems();
         for(Book book : books) {
@@ -95,6 +100,9 @@ public class StudentController {
     @RequestMapping("/applyList/{applyId}")
     public String getApplyRedirect(@PathVariable(value = "applyId") int applyId, Model model) {
         model.addAttribute("applyId", applyId);
+        Apply apply = applyDao.getApplyById(applyId);
+        List<ApplyItem> applyItems = apply.getApplyItems();
+        model.addAttribute("applyItems", applyItems);
         return "applyList";
     }
 

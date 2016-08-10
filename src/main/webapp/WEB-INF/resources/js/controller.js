@@ -6,24 +6,34 @@ var applyApp = angular.module("applyApp", []);
 
 applyApp.controller("applyCtrl", function($scope, $http) {
 
-    $scope.refreshApply = function(applyId) {
+    $scope.refreshApply = function() {
         $http.get('/rest/apply/'+$scope.applyId).success(function (data) {
            $scope.apply = data;
         });
     };
 
     $scope.clearApply = function() {
-        $http.delete('/rest/apply/'+$scope.applyId).success($scope.refreshApply($scope.applyId));
+        $http.delete('/rest/apply/'+$scope.applyId).success($scope.refreshApply());
     };
 
     $scope.initApplyId = function(applyId) {
         $scope.applyId = applyId;
-        $scope.refreshApply(applyId);
+        $scope.refreshApply();
     };
 
     $scope.removeFromApply = function (bookId) {
-        $http.put('/rest/apply/remove/'+bookId).success(function (data) {
-            $scope.refreshApply($http.get('/rest/apply/applyId'));
+        $http.put('/rest/apply/remove/'+bookId).success(function () {
+            $scope.refreshApply();
         });
     };
+
+    $scope.applyGrandTotal = function() {
+        var grandTotal = 0;
+
+        for(var i = 0; i < $scope.apply.applyItems.length; i++) {
+            grandTotal += $scope.apply.applyItems[i].totalPrice;
+        }
+
+        return grandTotal;
+    }
 });

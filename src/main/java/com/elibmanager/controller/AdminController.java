@@ -1,6 +1,7 @@
 package com.elibmanager.controller;
 
 import com.elibmanager.dao.BookDao;
+import com.elibmanager.dao.StudentDao;
 import com.elibmanager.model.Book;
 import com.elibmanager.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class AdminController {
     @Autowired
     private BookDao bookDao;
 
+    @Autowired
+    private StudentDao studentDao;
+
     @RequestMapping
     public String admin() {
         return "admin";
@@ -67,6 +71,14 @@ public class AdminController {
         initMap(model);
         if(result.hasErrors()) {
             return "addBook";
+        }
+
+        String owner = book.getBookOwner();
+        if(owner != null && !owner.isEmpty()) {
+            Student student = studentDao.getStudentByUsername(owner);
+            if(student != null) {
+                book.setStudent(student);
+            }
         }
         bookDao.addBook(book);
 
@@ -108,6 +120,14 @@ public class AdminController {
                 bookImage.transferTo(new File(path.toString()));
             } catch (Exception e) {
                 throw new RuntimeException("Book image saving failed", e);
+            }
+        }
+
+        String owner = book.getBookOwner();
+        if(owner != null && !owner.isEmpty()) {
+            Student student = studentDao.getStudentByUsername(owner);
+            if(student != null) {
+                book.setStudent(student);
             }
         }
         bookDao.editBook(book);

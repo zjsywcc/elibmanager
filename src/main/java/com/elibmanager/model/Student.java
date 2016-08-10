@@ -41,7 +41,7 @@ public class Student implements Serializable{
     @JsonIgnore
     private Apply apply;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonIgnore
     private List<Book> bookList;

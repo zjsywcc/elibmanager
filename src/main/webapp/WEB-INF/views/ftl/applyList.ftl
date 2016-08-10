@@ -12,7 +12,7 @@
         </section>
 
         <section class="container" ng-app="applyApp">
-            <div ng-controller="applyCtrl" ng-init="initApplyId('${applyId}')">
+            <div ng-controller="applyCtrl" ng-init="initApplyId(${applyId})">
                 <div>
                     <a class="btn btn-danger pull-left" ng-click="clearApply()"><span class="glyphicon glyphicon-remove-sign"></span>Clear Apply</a>
                 </div>
@@ -38,11 +38,24 @@
                         <td>{{item.book.bookOwner}}</td>
                         <td><a href="#" class="label label-danger" ng-click="removeFromApply(item.book.bookId)"><span class="glyphicon glyphicon-remove"></span>remove</a></td>
                     </tr>
+                    <#--<#list applyItems as applyItem><tr>-->
+                        <#--<td>${applyItem.book.bookName}</td>-->
+                        <#--<td>${applyItem.book.bookAuthor}</td>-->
+                        <#--<td>${applyItem.book.bookPress}</td>-->
+                        <#--<td>${applyItem.book.bookPrice}</td>-->
+                        <#--<td>${applyItem.book.bookEdition}</td>-->
+                        <#--<td>${applyItem.book.bookISBN}</td>-->
+                        <#--<td>${applyItem.book.bookOwner}</td>-->
+                        <#--<td><a href="#" class="label label-danger" ng-click="removeFromApply(${applyItem.book.bookId})"><span class="glyphicon glyphicon-remove"></span>remove</a></td>-->
+                    <#--</tr></#list>-->
                     <tr>
                         <th></th>
                         <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                         <th>Grand Total</th>
-                        <th>{{apply.grandTotal}}</th>
+                        <th>{{calGrandTotal()}}</th>
                         <th></th>
                     </tr>
                 </table>
@@ -50,7 +63,6 @@
                 <a href="/bookList" class="btn btn-default">等待上架中</a>
             </div>
         </section>
-    </div>
-</div>
+
 <script src="/resources/js/controller.js"></script>
 <#include "template/footer.ftl">

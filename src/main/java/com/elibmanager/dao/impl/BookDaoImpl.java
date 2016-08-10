@@ -1,6 +1,7 @@
 package com.elibmanager.dao.impl;
 
 import com.elibmanager.dao.BookDao;
+import com.elibmanager.dao.StudentDao;
 import com.elibmanager.model.Book;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -20,6 +21,9 @@ public class BookDaoImpl implements BookDao {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private StudentDao studentDao;
 
     public void addBook(Book book) {
         Session session = sessionFactory.getCurrentSession();
@@ -66,6 +70,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     public void deleteBook(int id) {
+
         Session session = sessionFactory.getCurrentSession();
         session.delete(getBookById(id));
         session.flush();

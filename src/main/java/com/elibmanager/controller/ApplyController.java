@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by mengchenyun on 2016/8/8.
  */
@@ -31,17 +33,20 @@ public class ApplyController {
     @Autowired
     private BookDao bookDao;
     
-    @RequestMapping("/{applyId}")
+    @RequestMapping(value= "/{applyId}", method = RequestMethod.GET)
     public @ResponseBody
     Apply getApplyById(@PathVariable(value = "applyId") int applyId) {
-        return applyDao.getApplyById(applyId);
+        Apply apply = applyDao.getApplyById(applyId);
+        int size = apply.getApplyItems().size();
+        return apply;
     }
 
-    @RequestMapping(value = "/remove/{applyId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/remove/{bookId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void removeItem(@PathVariable(value = "bookId") int bookId) {
         ApplyItem applyItem = applyItemDao.getApplyItemByBookId(bookId);
         applyItemDao.removeApplyItem(applyItem);
+        bookDao.deleteBook(bookId);
     }
 
     @RequestMapping(value = "/{applyId}", method = RequestMethod.DELETE)
@@ -49,6 +54,10 @@ public class ApplyController {
     public void  clearApply(@PathVariable(value = "applyId") int applyId) {
         Apply apply = applyDao.getApplyById(applyId);
         applyItemDao.removeAllApplyItems(apply);
+        List<ApplyItem> applyItems = apply.getApplyItems();
+        for(ApplyItem applyItem : applyItems) {
+            bookDao.deleteBook(applyItem.getBook().getBookId());
+        }
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
