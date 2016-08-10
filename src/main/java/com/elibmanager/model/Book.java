@@ -48,6 +48,11 @@ public class Book implements Serializable {
     @JsonIgnore
     private Student student;
 
+    @ManyToOne
+    @JoinColumn(name = "studentOrderId")
+    @JsonIgnore
+    private StudentOrder studentOrder;
+
     private String bookStatus;
 
     public int getBookId() {
@@ -136,6 +141,14 @@ public class Book implements Serializable {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public StudentOrder getStudentOrder() {
+        return studentOrder;
+    }
+
+    public void setStudentOrder(StudentOrder studentOrder) {
+        this.studentOrder = studentOrder;
     }
 
     public String getBookStatus() {

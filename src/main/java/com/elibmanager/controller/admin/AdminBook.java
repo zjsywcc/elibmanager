@@ -1,4 +1,4 @@
-package com.elibmanager.controller;
+package com.elibmanager.controller.admin;
 
 import com.elibmanager.dao.BookDao;
 import com.elibmanager.dao.StudentDao;
@@ -22,15 +22,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
- * Created by wcc on 2016/8/5.
+ * Created by wcc on 2016/8/10.
  */
+
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminBook {
 
     private Path path;
 
@@ -40,23 +40,6 @@ public class AdminController {
     @Autowired
     private StudentDao studentDao;
 
-    @RequestMapping
-    public String admin() {
-        return "admin";
-    }
-
-    @RequestMapping("/bookInventory")
-    public String bookInventory(Model model) {
-        List<Book> books = bookDao.getAllBooks();
-        model.addAttribute("books", books);
-        return "bookInventory";
-    }
-
-    @RequestMapping("/students")
-    public String studentsManagement(Model model) {
-        //TODO
-        return "studentsManagement";
-    }
 
     @RequestMapping("/bookInventory/addBook")
     public String addBook(Model model) {
@@ -69,14 +52,14 @@ public class AdminController {
     @RequestMapping(value = "/bookInventory/addBook", method = RequestMethod.POST)
     public String addBookPost(@Valid @ModelAttribute("book") Book book, BindingResult result, HttpServletRequest request, Model model) {
         initMap(model);
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return "addBook";
         }
 
         String owner = book.getBookOwner();
-        if(owner != null && !owner.isEmpty()) {
+        if (owner != null && !owner.isEmpty()) {
             Student student = studentDao.getStudentByUsername(owner);
-            if(student != null) {
+            if (student != null) {
                 book.setStudent(student);
             }
         }
@@ -86,7 +69,7 @@ public class AdminController {
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
         path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + book.getBookId() + ".png");
 
-        if(bookImage != null && !bookImage.isEmpty()) {
+        if (bookImage != null && !bookImage.isEmpty()) {
             try {
                 bookImage.transferTo(new File(path.toString()));
             } catch (Exception e) {
@@ -105,17 +88,18 @@ public class AdminController {
         return "editBook";
     }
 
-    @RequestMapping(value = "/bookInventory/editBook", method = RequestMethod.POST) //BindingResult should just follow the @ModelAttribute!
+    @RequestMapping(value = "/bookInventory/editBook", method = RequestMethod.POST)
+    //BindingResult should just follow the @ModelAttribute!
     public String editBook(@Valid @ModelAttribute("book") Book book, BindingResult result, HttpServletRequest request, Model model) {
         initMap(model);
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return "editBook";
         }
         MultipartFile bookImage = book.getBookImage();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\"+book.getBookId()+".png");
+        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + book.getBookId() + ".png");
 
-        if(bookImage != null && !bookImage.isEmpty()) {
+        if (bookImage != null && !bookImage.isEmpty()) {
             try {
                 bookImage.transferTo(new File(path.toString()));
             } catch (Exception e) {
@@ -124,9 +108,9 @@ public class AdminController {
         }
 
         String owner = book.getBookOwner();
-        if(owner != null && !owner.isEmpty()) {
+        if (owner != null && !owner.isEmpty()) {
             Student student = studentDao.getStudentByUsername(owner);
-            if(student != null) {
+            if (student != null) {
                 book.setStudent(student);
             }
         }
@@ -138,9 +122,9 @@ public class AdminController {
     @RequestMapping("/bookInventory/deleteBook/{bookId}")
     public String deleteBook(@PathVariable("bookId") int bookId, HttpServletRequest request) {
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory+"\\WEB-INF\\resources\\images\\"+bookId+".png");
+        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + bookId + ".png");
 
-        if(Files.exists(path)) {
+        if (Files.exists(path)) {
             try {
                 Files.delete(path);
             } catch (IOException e) {
@@ -161,3 +145,4 @@ public class AdminController {
     }
 
 }
+

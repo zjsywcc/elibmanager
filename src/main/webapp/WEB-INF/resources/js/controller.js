@@ -35,5 +35,12 @@ applyApp.controller("applyCtrl", function($scope, $http) {
         }
 
         return grandTotal;
-    }
+    };
+
+    $scope.createOrder = function() {
+        $http.put('/rest/apply/order/'+$scope.applyId).success(function() {
+            $scope.refreshApply();
+            alert('You have successfully send your purchase request!');
+        });
+    };
 });

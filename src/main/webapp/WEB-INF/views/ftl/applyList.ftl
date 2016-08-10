@@ -15,6 +15,7 @@
             <div ng-controller="applyCtrl" ng-init="initApplyId(${applyId})">
                 <div>
                     <a class="btn btn-danger pull-left" ng-click="clearApply()"><span class="glyphicon glyphicon-remove-sign"></span>Clear Apply</a>
+                    <a class="btn btn-success pull-right" ng-click="createOrder()"><span class="glyphicon glyphicon-shopping-cart"></span>Submit Apply</a>
                 </div>
 
                 <table class="table table-hover">
@@ -38,16 +39,6 @@
                         <td>{{item.book.bookOwner}}</td>
                         <td><a href="#" class="label label-danger" ng-click="removeFromApply(item.book.bookId)"><span class="glyphicon glyphicon-remove"></span>remove</a></td>
                     </tr>
-                    <#--<#list applyItems as applyItem><tr>-->
-                        <#--<td>${applyItem.book.bookName}</td>-->
-                        <#--<td>${applyItem.book.bookAuthor}</td>-->
-                        <#--<td>${applyItem.book.bookPress}</td>-->
-                        <#--<td>${applyItem.book.bookPrice}</td>-->
-                        <#--<td>${applyItem.book.bookEdition}</td>-->
-                        <#--<td>${applyItem.book.bookISBN}</td>-->
-                        <#--<td>${applyItem.book.bookOwner}</td>-->
-                        <#--<td><a href="#" class="label label-danger" ng-click="removeFromApply(${applyItem.book.bookId})"><span class="glyphicon glyphicon-remove"></span>remove</a></td>-->
-                    <#--</tr></#list>-->
                     <tr>
                         <th></th>
                         <th></th>
@@ -55,7 +46,7 @@
                         <th></th>
                         <th></th>
                         <th>Grand Total</th>
-                        <th>{{calGrandTotal()}}</th>
+                        <th>{{applyGrandTotal()}}</th>
                         <th></th>
                     </tr>
                 </table>

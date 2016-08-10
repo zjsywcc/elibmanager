@@ -1,7 +1,12 @@
 package com.elibmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by wcc on 2016/8/8.
@@ -23,6 +28,12 @@ public class StudentOrder implements Serializable {
     @OneToOne
     @JoinColumn(name = "studentId")
     private Student student;
+
+    @OneToMany(mappedBy = "studentOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnore
+    private List<Book> bookList;
+
 
     public int getStudentOrderId() {
         return studentOrderId;
@@ -46,5 +57,13 @@ public class StudentOrder implements Serializable {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
     }
 }
