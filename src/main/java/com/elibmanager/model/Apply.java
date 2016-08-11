@@ -20,7 +20,7 @@ public class Apply implements Serializable {
     @GeneratedValue
     private int applyId;
 
-    @OneToMany(mappedBy = "apply", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "apply", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private List<ApplyItem> applyItems;
 
     @OneToOne

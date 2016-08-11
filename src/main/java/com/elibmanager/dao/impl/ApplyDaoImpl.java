@@ -22,4 +22,10 @@ public class ApplyDaoImpl implements ApplyDao {
         Session session = sessionFactory.getCurrentSession();
         return (Apply) session.get(Apply.class, applyId);
     }
+
+    public void deleteApply(Apply apply) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(apply);
+        session.flush();
+    }
 }

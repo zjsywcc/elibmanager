@@ -9,4 +9,6 @@ public interface ApplyDao {
 
     Apply getApplyById(int applyId);
 
+    void deleteApply(Apply apply);
+
 }

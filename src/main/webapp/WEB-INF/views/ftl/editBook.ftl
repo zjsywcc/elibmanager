@@ -5,10 +5,10 @@
         <div class="page-header">
             <h1>Add Book</h1>
 
-            <p class="lead">Fill the below information to add a book:</p>
+            <p class="lead">Fill the below information to edit a book:</p>
         </div>
 
-        <form action="${springMacroRequestContext.contextPath}/admin/bookInventory/addBook" method="post"
+        <form action="${springMacroRequestContext.contextPath}/admin/bookInventory/editBook" method="post"
               enctype="multipart/form-data">
 
             <@spring.bind "book.bookId"/>

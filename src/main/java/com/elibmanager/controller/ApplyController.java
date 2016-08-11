@@ -37,7 +37,6 @@ public class ApplyController {
     public @ResponseBody
     Apply getApplyById(@PathVariable(value = "applyId") int applyId) {
         Apply apply = applyDao.getApplyById(applyId);
-        int size = apply.getApplyItems().size();
         return apply;
     }
 

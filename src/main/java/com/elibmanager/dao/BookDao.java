@@ -22,4 +22,6 @@ public interface BookDao {
     void deleteBook(int id);
 
     void editBook(Book book);
+
+    void removeBooksByStudentId(int studentId);
 }

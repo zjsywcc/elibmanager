@@ -75,4 +75,12 @@ public class BookDaoImpl implements BookDao {
         session.delete(getBookById(id));
         session.flush();
     }
+
+    public void removeBooksByStudentId(int studentId) {
+        Session session = sessionFactory.getCurrentSession();
+        List<Book> books = studentDao.getStudentById(studentId).getBookList();
+        for(Book book : books) {
+            deleteBook(book.getBookId());
+        }
+    }
 }

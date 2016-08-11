@@ -38,7 +38,7 @@ public class Book implements Serializable {
     @Transient
     private MultipartFile bookImage;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonIgnore
     private List<ApplyItem> applyItemList;

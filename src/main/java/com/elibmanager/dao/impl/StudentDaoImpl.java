@@ -1,10 +1,7 @@
 package com.elibmanager.dao.impl;
 
-import com.elibmanager.dao.StudentDao;
-import com.elibmanager.model.Apply;
-import com.elibmanager.model.Authorities;
-import com.elibmanager.model.Student;
-import com.elibmanager.model.Users;
+import com.elibmanager.dao.*;
+import com.elibmanager.model.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,6 +20,24 @@ public class StudentDaoImpl implements StudentDao {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private UsersDao usersDao;
+
+    @Autowired
+    private AuthoritiesDao authoritiesDao;
+
+    @Autowired
+    private ApplyDao applyDao;
+
+    @Autowired
+    private BookDao bookDao;
+
+    @Autowired
+    private ApplyItemDao applyItemDao;
+
+    @Autowired
+    private StudentOrderDao studentOrderDao;
 
     public void addStudent(Student student) {
         Session session = sessionFactory.getCurrentSession();
@@ -70,5 +85,57 @@ public class StudentDaoImpl implements StudentDao {
         query.setString(0, username);
 
         return (Student) query.uniqueResult();
+    }
+
+    public void editStudent(Student student) {
+        Session session = sessionFactory.getCurrentSession();
+
+        int studentId = student.getStudentId();
+        Users users = usersDao.getUsersByStudentId(studentId);
+        String username = users.getUsername();
+
+        users.setEnabled(student.isEnabled());
+        users.setUsername(student.getUsername());
+        users.setPassword(student.getPassword());
+        session.saveOrUpdate(users);
+
+        Authorities authorities = authoritiesDao.getAuthoritiesByUsername(username);
+        authorities.setUsername(student.getUsername());
+        session.saveOrUpdate(authorities);
+
+        Apply apply = student.getApply();
+        student.setApply(apply);
+
+        session.saveOrUpdate(student);
+        session.flush();
+    }
+
+    public void deleteStudent(int studentId) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Student student = getStudentById(studentId);
+
+        Users users = usersDao.getUsersByStudentId(studentId);
+        String username = users.getUsername();
+        usersDao.deleteUsers(users);
+
+        authoritiesDao.deleteAuthoritiesByUsername(username);
+
+        Apply apply = applyDao.getApplyById(student.getApply().getApplyId());
+        applyItemDao.removeAllApplyItems(apply);
+        session.delete(apply);
+
+        List<StudentOrder> studentOrders = studentOrderDao.getStudentOrderByStudentId(studentId);
+        for(StudentOrder studentOrder : studentOrders) {
+            session.delete(studentOrder);
+        }
+
+        List<Book> books = student.getBookList();
+        for(Book book : books) {
+            session.delete(book);
+        }
+
+        session.delete(student);
+        session.flush();
     }
 }

@@ -100,9 +100,6 @@ public class StudentController {
     @RequestMapping("/applyList/{applyId}")
     public String getApplyRedirect(@PathVariable(value = "applyId") int applyId, Model model) {
         model.addAttribute("applyId", applyId);
-        Apply apply = applyDao.getApplyById(applyId);
-        List<ApplyItem> applyItems = apply.getApplyItems();
-        model.addAttribute("applyItems", applyItems);
         return "applyList";
     }
 

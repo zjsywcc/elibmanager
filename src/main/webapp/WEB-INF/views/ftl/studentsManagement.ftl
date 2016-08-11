@@ -15,8 +15,9 @@
                 <th>邮箱</th>
                 <th>用户名</th>
                 <th>状态</th>
-                <th>管理</th>
                 <th>申请</th>
+                <th>管理</th>
+                <th>删除</th>
             </tr>
             </thead>
         <#if students??>
@@ -27,10 +28,13 @@
                     <td>${student.username}</td>
                     <td>${student.enabled}</td>
                     <td>
-                        <a href="/admin/students/authority/${student.studentId}"><span class="glyphicon glyphicon-info-sign"></span></a>
+                        <a href="/admin/students/bookApply/${student.studentId}"><span class="glyphicon glyphicon-info-sign"></span></a>
                     </td>
                     <td>
-                        <a href="/admin/students/bookApply/${student.studentId}"><span class="glyphicon glyphicon-info-sign"></span></a>
+                        <a href="/admin/students/studentManagement/${student.studentId}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
+                    <td>
+                        <a href="/rest/studentManagement/deleteStudent/${student.studentId}"><span class="glyphicon glyphicon-remove"></span></a>
                     </td>
                 </tr>
             </#list>
