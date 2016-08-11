@@ -16,4 +16,6 @@ public interface StudentOrderDao {
     List<StudentOrder> getStudentOrderByStudentId(int studentId);
 
     void removeAllStudentOrders(int studentId);
+
+    StudentOrder getStudentOrderById(int studentOrderId);
 }

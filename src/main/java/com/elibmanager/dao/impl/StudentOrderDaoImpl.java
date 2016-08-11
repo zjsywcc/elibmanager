@@ -52,4 +52,11 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
             deleteStudentOrder(studentOrder);
         }
     }
+
+    public StudentOrder getStudentOrderById(int studentOrderId) {
+        Session session = sessionFactory.getCurrentSession();
+        StudentOrder studentOrder = (StudentOrder) session.get(StudentOrder.class, studentOrderId);
+        session.flush();
+        return studentOrder;
+    }
 }

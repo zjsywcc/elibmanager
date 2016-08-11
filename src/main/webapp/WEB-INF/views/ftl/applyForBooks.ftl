@@ -8,6 +8,10 @@
             <p class="lead">Fill the below information to apply for three books:</p>
         </div>
 
+        <#if maxApplyNumError??>
+            <div class="msg" style="color: #ff0000">${maxApplyNumError}</div>
+        </#if>
+
         <form action="${springMacroRequestContext.contextPath}/student/applyForBooks" method="post"
               enctype="multipart/form-data">
 
@@ -15,6 +19,12 @@
                 <#assign item>bookListWrapper.bookList[${book_index}].bookStatus</#assign>
                     <@spring.bind item/><#if spring.status.error><@spring.showErrors "" "color: #ff0000"/></#if>
                     <input id="status" type="hidden" class="form-control" name="${spring.status.expression}" value="${spring.status.value?default("")}"/>
+            </#list>
+
+            <#list bookListWrapper.bookList as book>
+                <#assign item>bookListWrapper.bookList[${book_index}].bookOwner</#assign>
+                    <@spring.bind item/><#if spring.status.error><@spring.showErrors "" "color: #ff0000"/></#if>
+                    <input id="owner" type="hidden" class="form-control" name="${spring.status.expression}" value="${spring.status.value?default("")}"/>
             </#list>
 
             <div class="row">
@@ -83,16 +93,7 @@
             </#list>
             </div>
 
-            <div class="row">
-            <#list bookListWrapper.bookList as book>
-                <#assign item>bookListWrapper.bookList[${book_index}].bookOwner</#assign>
-                <div class="form-group col-md-4">
-                    <label for="owner">Owner</label>
-                    <@spring.bind item/><#if spring.status.error><@spring.showErrors "" "color: #ff0000"/></#if>
-                    <input id="owner" class="form-control" name="${spring.status.expression}" value="${spring.status.value?default("")}"/>
-                </div>
-            </#list>
-            </div>
+
 
             <br><br>
             <input type="submit" value="submit" class="btn btn-default">

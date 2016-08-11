@@ -11,4 +11,6 @@ public interface ApplyDao {
 
     void deleteApply(Apply apply);
 
+    void editApply(Apply apply);
+
 }

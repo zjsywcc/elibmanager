@@ -46,17 +46,25 @@ public class ApplyController {
         ApplyItem applyItem = applyItemDao.getApplyItemByBookId(bookId);
         applyItemDao.removeApplyItem(applyItem);
         bookDao.deleteBook(bookId);
+
+        Apply apply = applyItem.getApply();
+        double grandTotal = apply.getGrandTotal();
+        grandTotal -= applyItem.getTotalPrice();
+        apply.setGrandTotal(grandTotal);
+        applyDao.editApply(apply);
     }
 
     @RequestMapping(value = "/{applyId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void  clearApply(@PathVariable(value = "applyId") int applyId) {
         Apply apply = applyDao.getApplyById(applyId);
+        apply.setGrandTotal(0);
         applyItemDao.removeAllApplyItems(apply);
         List<ApplyItem> applyItems = apply.getApplyItems();
         for(ApplyItem applyItem : applyItems) {
             bookDao.deleteBook(applyItem.getBook().getBookId());
         }
+        applyDao.editApply(apply);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

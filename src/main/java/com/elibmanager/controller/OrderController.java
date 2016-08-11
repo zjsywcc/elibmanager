@@ -2,6 +2,8 @@ package com.elibmanager.controller;
 
 import com.elibmanager.dao.*;
 import com.elibmanager.model.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -33,12 +35,15 @@ public class OrderController {
     @Autowired
     private BookDao bookDao;
 
+
+
     @RequestMapping(value = "/order/{applyId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void createOrder(@PathVariable("applyId") int applyId) {
         StudentOrder studentOrder = new StudentOrder();
 
         Apply apply = applyDao.getApplyById(applyId);
+        apply.setGrandTotal(0);
         studentOrder.setApply(apply);
 
         studentOrder.setStudent(apply.getStudent());
@@ -52,5 +57,9 @@ public class OrderController {
         studentOrder.setBookList(books);
         studentOrderDao.addStudentOrder(studentOrder);
         applyItemDao.removeAllApplyItems(apply);
+        applyDao.editApply(apply);
+        for(Book book : books) {
+            bookDao.editBook(book);
+        }
     }
 }

@@ -29,7 +29,7 @@ public class StudentOrder implements Serializable {
     @JoinColumn(name = "studentId")
     private Student student;
 
-    @OneToMany(mappedBy = "studentOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "studentOrder", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonIgnore
     private List<Book> bookList;

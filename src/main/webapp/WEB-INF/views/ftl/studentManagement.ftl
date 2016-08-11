@@ -46,7 +46,7 @@
                     </div>
                     <br><br>
                     <input type="submit" value="submit" class="btn btn-default">
-                    <a href="/admin/bookInventory" class="btn btn-default">Cancel</a>
+                    <a href="/admin/students" class="btn btn-default">Cancel</a>
                 </form>
             </div>
         </section>

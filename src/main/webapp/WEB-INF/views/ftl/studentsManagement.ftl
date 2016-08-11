@@ -26,7 +26,7 @@
                     <td>${student.studentName}</td>
                     <td>${student.studentEmail}</td>
                     <td>${student.username}</td>
-                    <td>${student.enabled}</td>
+                    <td>${student.enabled?c}</td>
                     <td>
                         <a href="/admin/students/bookApply/${student.studentId}"><span class="glyphicon glyphicon-info-sign"></span></a>
                     </td>

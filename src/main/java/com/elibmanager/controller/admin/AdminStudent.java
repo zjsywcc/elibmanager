@@ -28,11 +28,7 @@ public class AdminStudent {
         return "studentManagement";
     }
 
-    @RequestMapping("/bookApply/{studentId}")
-    public String applyChecking(@PathVariable("studentId") int studentId, Model model) {
-        model.addAttribute("studentId", studentId);
-        return "applyChecking";
-    }
+
 
     // just pass map to radiobuttons in ftl
     public void initMap(Model model) {

@@ -13,6 +13,5 @@
                 <a href="/login" class="btn btn-default">前往登录</a>
             </p>
         </section>
-    </div>
-</div>
+
 <#include "template/footer.ftl">

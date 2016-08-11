@@ -48,7 +48,7 @@ public class StudentController {
     }
 
     @RequestMapping("/applyForBooks")
-    public String applyForBooks(Model model) {
+    public String applyForBooks(@AuthenticationPrincipal User activeUser, Model model) {
         BookListWrapper bookListWrapper = new BookListWrapper();
         Book book1 = new Book();
         Book book2 = new Book();
@@ -56,6 +56,9 @@ public class StudentController {
         book1.setBookStatus("checking");
         book2.setBookStatus("checking");
         book3.setBookStatus("checking");
+        book1.setBookOwner(activeUser.getUsername());
+        book2.setBookOwner(activeUser.getUsername());
+        book3.setBookOwner(activeUser.getUsername());
         bookListWrapper.add(book1);
         bookListWrapper.add(book2);
         bookListWrapper.add(book3);
@@ -67,25 +70,29 @@ public class StudentController {
     public String applyForBooksPost(@Valid @ModelAttribute("bookListWrapper") BookListWrapper bookListWrapper, BindingResult result, @AuthenticationPrincipal User activeUser, Model model) {
         List<Book> books = bookListWrapper.getBookList();
         Student student = studentDao.getStudentByUsername(activeUser.getUsername());
-        for(Book book : books) {
-            book.setStudent(student);
-        }
-        bookDao.addAllBooks(books);
+
         Apply apply = student.getApply();
+        double totalPrice = apply.getGrandTotal();
         List<ApplyItem> applyItems = apply.getApplyItems();
         for(Book book : books) {
             if(applyItems.size() < 3) {
+                book.setStudent(student);
+                bookDao.addBook(book);
+
                 ApplyItem applyItem = new ApplyItem();
                 applyItem.setBook(book);
                 applyItem.setQuantity(1);
                 applyItem.setTotalPrice(book.getBookPrice());
                 applyItem.setApply(apply);
                 applyItemDao.addApplyItem(applyItem);
+                totalPrice += book.getBookPrice();
             } else {
                 model.addAttribute("maxApplyNumError","You can only apply for 3 books!");
-                return "/applyForBooks";
+                return "applyForBooks";
             }
         }
+        apply.setGrandTotal(totalPrice);
+        applyDao.editApply(apply);
         return "redirect:/student/applyList";
     }
 

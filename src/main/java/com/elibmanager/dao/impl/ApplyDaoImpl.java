@@ -28,4 +28,10 @@ public class ApplyDaoImpl implements ApplyDao {
         session.delete(apply);
         session.flush();
     }
+
+    public void editApply(Apply apply) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(apply);
+        session.flush();
+    }
 }
