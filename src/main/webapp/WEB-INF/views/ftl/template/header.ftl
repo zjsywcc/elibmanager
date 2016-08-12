@@ -20,7 +20,11 @@
     <title>eLib manager</title>
 
     <!-- Angular JS-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+    <script src="/resources/js/angular-1.0.1.min.js"></script>
+
+    <!-- JQuery -->
+    <script src="/resources/js/jquery-2.2.1.min.js"></script>
+    <script src="/resources/js/jquery.dataTables.min.js"></script>
 
     <!-- Bootstrap core CSS -->
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -30,6 +34,8 @@
 
     <!-- Custom styles for own page -->
     <link href="/resources/css/main.css" rel="stylesheet">
+
+    <link href="/resources/css/jquery.dataTables.min.css" rel="stylesheet">
 </head>
 <!-- NAVBAR
 ================================================== -->

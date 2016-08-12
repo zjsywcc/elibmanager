@@ -1,5 +1,14 @@
 <#include "template/header.ftl"/>
 
+<script>
+    $(document).ready(function(){
+
+        $('.table').DataTable({
+            "lengthMenu": [[5,10, -1], [5,10, "All"]]
+        });
+    });
+</script>
+
 <div class="container-wrapper">
     <div class="container">
         <div class="page-header">

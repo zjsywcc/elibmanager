@@ -56,5 +56,5 @@
         <a href="/admin/students/bookApply/checkBook?student=${studentId}" class="btn btn-primary pull-right">上架全部</a>
     </#if>
 
-        <br><br>
+
     <#include "template/footer.ftl"/>

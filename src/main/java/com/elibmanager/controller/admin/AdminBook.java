@@ -58,7 +58,7 @@ public class AdminBook {
 
         String owner = book.getBookOwner();
         if (owner != null && !owner.isEmpty()) {
-            Student student = studentDao.getStudentByUsername(owner);
+            Student student = studentDao.getStudentByStudentName(owner);
             if (student != null) {
                 book.setStudent(student);
             }

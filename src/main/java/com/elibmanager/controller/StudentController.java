@@ -49,6 +49,9 @@ public class StudentController {
 
     @RequestMapping("/applyForBooks")
     public String applyForBooks(@AuthenticationPrincipal User activeUser, Model model) {
+        String username = activeUser.getUsername();
+        String studentName = studentDao.getStudentByUsername(username).getStudentName();
+
         BookListWrapper bookListWrapper = new BookListWrapper();
         Book book1 = new Book();
         Book book2 = new Book();
@@ -56,9 +59,9 @@ public class StudentController {
         book1.setBookStatus("checking");
         book2.setBookStatus("checking");
         book3.setBookStatus("checking");
-        book1.setBookOwner(activeUser.getUsername());
-        book2.setBookOwner(activeUser.getUsername());
-        book3.setBookOwner(activeUser.getUsername());
+        book1.setBookOwner(studentName);
+        book2.setBookOwner(studentName);
+        book3.setBookOwner(studentName);
         bookListWrapper.add(book1);
         bookListWrapper.add(book2);
         bookListWrapper.add(book3);

@@ -87,6 +87,14 @@ public class StudentDaoImpl implements StudentDao {
         return (Student) query.uniqueResult();
     }
 
+    public Student getStudentByStudentName(String studentName) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Student where studentName = ?");
+        query.setString(0, studentName);
+
+        return (Student) query.uniqueResult();
+    }
+
     public void editStudent(Student student) {
         Session session = sessionFactory.getCurrentSession();
 
