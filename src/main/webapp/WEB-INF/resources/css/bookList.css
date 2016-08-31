@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+/*===================================商品列表===================================*/
+/*文字列表*/
+.books-list{ padding:25px 0 10px 170px; border-bottom:#dcdcdc 1px dashed; position:relative; *zoom:1; min-height:170px; _height:170px;}
+.books-list a{ color:#248AC1;}
+.books-list a:hover { color:#F50; text-decoration:underline; }
+.books-list .text2{ text-indent:2em;}
+.books-list:after{ content:'\20'; display:block; height:0; clear:both; }
+.books-list .summary { font-size:14px; line-height:18px; font-weight:bold; line-height:20px; font-family:\5b8b\4f53; margin-right:10px; }
+.books-list .summary a, .books-list .summary a:link { font-size:14px;}
+.books-list .summary span { color:#999; font-weight:100; font-size:10px; font-family:Arial, Helvetica, sans-serif; white-space:nowrap; margin-left:4px; }
+.books-list .summary em{padding:1px 3px 1px; font-size:12px; font-weight:100; font-style:normal; line-height:normal; background-color:#F60; color:#FFF;}
+.books-list .photo { border:1px solid #D9D9D9; background-color:#FFF; height:150px; overflow:hidden; position:absolute; top:28px; left:5px; width:150px; padding:1px; }
+.books-list .photo a:hover{ background:#f1f1f1;}
+.books-list .photo a{ font:12px/1 Tahoma, Helvetica, Arial; display:table-cell; height:150px; text-align:center; vertical-align:middle; width:150px; *display:block;
+    *font-family:Arial;
+    *font-size:87px;
+}
+.books-list .photo img { vertical-align:middle; width:148px; height:148px; }
+.books-list .param-group { color:#555; height:36px; padding-top:2px; line-height:18px; word-break:keep-all; _word-break:break-all; overflow:hidden; text-overflow: ellipsis; margin-right:280px; }
+.books-list .books-info{ display:block; overflow:hidden; zoom:1;}
+.books-list .books-info li{ width:50%; float:left; padding:2px 0;}
+

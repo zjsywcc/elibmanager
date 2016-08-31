@@ -8,6 +8,9 @@ import java.util.List;
  * Created by wcc on 2016/8/5.
  */
 public interface BookDao {
+    void indexBooks() throws Exception;
+
+    List<Book> searchForBook(String searchText) throws Exception;
 
     void addBook(Book book);
 

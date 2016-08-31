@@ -20,11 +20,17 @@
     <title>eLib manager</title>
 
     <!-- Angular JS-->
-    <script src="/resources/js/angular-1.0.1.min.js"></script>
+    <script src="/resources/js/angular-1.5.5.min.js"></script>
+
+
+
 
     <!-- JQuery -->
     <script src="/resources/js/jquery-2.2.1.min.js"></script>
     <script src="/resources/js/jquery.dataTables.min.js"></script>
+    <script src="/resources/js/jquery.autocomplete.min.js"></script>
+
+
 
     <!-- Bootstrap core CSS -->
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -36,6 +42,9 @@
     <link href="/resources/css/main.css" rel="stylesheet">
 
     <link href="/resources/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <!-- Book list style -->
+    <link href="/resources/css/bookList.css" rel="stylesheet">
 </head>
 <!-- NAVBAR
 ================================================== -->
@@ -76,7 +85,7 @@
                             <#if role="user">
                                 <ul class="dropdown-menu">
                                     <li><a href="/student/myBooks">MyBooks</a></li>
-                                    <li><a href="/student/applyForBooks">Apply Books</a></li>
+                                    <li><a href="/student/searchForBooks">Apply Books</a></li>
                                     <li><a href="/student/applyList">Apply Lists</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="/j_spring_security_logout">Logout</a></li>

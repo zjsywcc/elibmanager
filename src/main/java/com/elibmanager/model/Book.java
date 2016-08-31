@@ -1,8 +1,11 @@
 package com.elibmanager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +18,9 @@ import java.util.List;
 /**
  * Created by wcc on 2016/8/4.
  */
+@Indexed
 @Entity
+@Analyzer(impl=SmartChineseAnalyzer.class)
 public class Book implements Serializable {
 
     private static final long serialVersionUID = -6251070844531027911L;
@@ -24,15 +29,24 @@ public class Book implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int bookId;
 
+    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     @NotEmpty(message = "The book name must not be null.")
     private String bookName;
+
+    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String bookAuthor;
+
+    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String bookPress;
 
     @Min(value = 0, message = "The book price must not be less than zero.")
     private double bookPrice;
     private String bookEdition;
+
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String bookISBN;
+
+    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String bookOwner;
 
     @Transient

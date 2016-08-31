@@ -6,6 +6,9 @@ import com.elibmanager.model.Book;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,44 @@ public class BookDaoImpl implements BookDao {
 
     @Autowired
     private StudentDao studentDao;
+
+    @Transactional
+    public void indexBooks() throws Exception
+    {
+        Session session = sessionFactory.getCurrentSession();
+
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+
+        fullTextSession.createIndexer(Book.class).start();
+
+    }
+
+    public List<Book> searchForBook(String searchText) throws Exception
+    {
+        List<Book> results = null;
+
+        Session session = sessionFactory.getCurrentSession();
+
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+
+        QueryBuilder qb = fullTextSession.getSearchFactory()
+                .buildQueryBuilder().forEntity(Book.class).get();
+        org.apache.lucene.search.Query query = qb
+                .phrase().onField("bookName")
+                .andField("bookAuthor")
+                .andField("bookPress")
+                .andField("bookISBN")
+                .andField("bookOwner")
+                .sentence(searchText)
+                .createQuery();
+
+        org.hibernate.Query hibQuery =
+                fullTextSession.createFullTextQuery(query, Book.class);
+
+        results = hibQuery.list();
+        return results;
+
+    }
 
     public void addBook(Book book) {
         Session session = sessionFactory.getCurrentSession();

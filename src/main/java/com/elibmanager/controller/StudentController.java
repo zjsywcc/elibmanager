@@ -1,9 +1,6 @@
 package com.elibmanager.controller;
 
-import com.elibmanager.dao.ApplyDao;
-import com.elibmanager.dao.ApplyItemDao;
-import com.elibmanager.dao.BookDao;
-import com.elibmanager.dao.StudentDao;
+import com.elibmanager.dao.*;
 import com.elibmanager.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -11,10 +8,7 @@ import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -38,6 +32,9 @@ public class StudentController {
 
     @Autowired
     private ApplyDao applyDao;
+
+    @Autowired
+    private BookInfoDao bookInfoDao;
 
     @RequestMapping("/myBooks")
     public String getMyBooks(@AuthenticationPrincipal User activeUser, Model model) {
@@ -112,5 +109,29 @@ public class StudentController {
         model.addAttribute("applyId", applyId);
         return "applyList";
     }
+
+    @RequestMapping("/searchForBooks")
+    public String searchForBooks() throws Exception {
+        bookInfoDao.indexBooks();
+        return "bookuuSearch";
+    }
+
+    @RequestMapping(value = "/searchForBooks", method = RequestMethod.POST)
+    public String search(@RequestParam(value = "searchText", required = false) String searchText, Model model) throws Exception{
+        if(searchText == null || searchText.isEmpty()) {
+            model.addAttribute("msg", "请求参数为空");
+            return "bookuuResult";
+        }
+        List<BookInfo> allFound = bookInfoDao.searchForBook(searchText);
+        model.addAttribute("allFoundBooks", allFound);
+        return "bookuuResult";
+    }
+
+    @RequestMapping(value = "/getBookuuInfos", method = RequestMethod.GET)
+    public @ResponseBody
+    List<BookInfo> getBookInfos(@RequestParam String searchText) throws Exception {
+        return bookInfoDao.searchForBook(searchText);
+    }
+
 
 }

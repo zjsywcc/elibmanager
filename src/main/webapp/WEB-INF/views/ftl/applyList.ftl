@@ -12,7 +12,7 @@
         </section>
 
         <section class="container" ng-app="applyApp">
-            <div ng-controller="applyCtrl" ng-init="initApplyId(${applyId})">
+            <div ng-controller="applyCtrl" ng-init="initApplyId(${applyId?long?c})">
                 <div>
                     <a class="btn btn-danger pull-left" ng-click="clearApply()"><span class="glyphicon glyphicon-remove-sign"></span>Clear Apply</a>
                     <a class="btn btn-success pull-right" ng-click="createOrder()"><span class="glyphicon glyphicon-shopping-cart"></span>Submit Apply</a>

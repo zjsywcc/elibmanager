@@ -21,7 +21,13 @@ applyApp.controller("applyCtrl", function($scope, $http) {
         $scope.refreshApply();
     };
 
-    $scope.removeFromApply = function (bookId) {
+    $scope.addToApply = function(bookId) {
+        $http.put('/rest/apply/add/'+bookId).success(function () {
+            alert("Book successfully added to your apply list!");
+        });
+    };
+
+    $scope.removeFromApply = function(bookId) {
         $http.put('/rest/apply/remove/'+bookId).success(function () {
             $scope.refreshApply();
         });
