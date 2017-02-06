@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * Created by fenghongqin on 2016/08/29.
+ * Created by mengchenyun on 2016/08/29.
  */
 @Entity
 @Indexed

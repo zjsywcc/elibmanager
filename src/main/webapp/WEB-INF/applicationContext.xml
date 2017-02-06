@@ -22,7 +22,7 @@
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.impl.FSDirectoryProvider</prop>
-                <prop key="hibernate.search.default.indexBase">H:\JavaCrawl\SampleSpringFullTextSearch\indexes</prop>
+                <prop key="hibernate.search.default.indexBase">D:\coding\Web\elibmanager\src\main\resources\indexes</prop>
                 <prop key="hibernate.search.analyzer">org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer</prop>
             </props>
         </property>
